@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BU Study Buddy</title>
+<style>
+:root{color-scheme:light;--bg:#faf8f6;--fg:#1d1b1a;--card:#fff;--line:#e3ded9;--mut:#6f6862;--ac:#c00;--acf:#fff;--busy:#d9d4ce;--pf:#cdeedb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#161413;--fg:#f1ece8;--card:#211e1c;--line:#3a3532;--mut:#a39a93;--ac:#ff6b6b;--acf:#1a0000;--busy:#3d3835;--pf:#1f4a33}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#161413;--fg:#f1ece8;--card:#211e1c;--line:#3a3532;--mut:#a39a93;--ac:#ff6b6b;--acf:#1a0000;--busy:#3d3835;--pf:#1f4a33}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:860px;margin:0 auto;padding:16px}
+h1{margin:0;font-size:22px}h1 span{color:var(--ac)}h2{font-size:16px;margin:18px 0 8px}
+.mut{color:var(--mut);font-size:13px}
+nav{display:flex;gap:6px;margin:14px 0;flex-wrap:wrap}
+button,select,input{font:inherit;color:inherit}
+nav button,.pp button,.chip{border:1px solid var(--line);background:var(--card);padding:7px 13px;border-radius:99px;cursor:pointer}
+nav button.on,.pp button.on,.chip.on{background:var(--ac);color:var(--acf);border-color:var(--ac)}
+.pri{background:var(--ac);color:var(--acf);border:0;border-radius:8px;padding:8px 14px;cursor:pointer}
+.sec{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 12px;cursor:pointer}
+.chips,.pills,.pp{display:flex;flex-wrap:wrap;gap:6px}
+select,input[type=text],input[type=number],input[type=email],input[type=password],#txt{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:8px;width:100%}
+.up{display:block;border:2px dashed var(--line);border-radius:10px;padding:16px;text-align:center;cursor:pointer;background:var(--card)}
+.shot{max-width:100%;max-height:260px;margin-top:10px;border-radius:8px;border:1px solid var(--line)}
+.gw{overflow-x:auto}
+table.g{border-collapse:collapse;width:100%;min-width:520px;font-size:12px}
+.g th{font-weight:500;color:var(--mut);padding:3px 5px}
+.g td{border:1px solid var(--line);height:18px;cursor:pointer;background:var(--card);text-align:center}
+.g td.b{background:repeating-linear-gradient(45deg,var(--busy),var(--busy) 4px,var(--card) 4px,var(--card) 7px)}
+.g td.pf{background:var(--pf)}
+.g td.sel{outline:2px solid var(--ac);outline-offset:-2px}
+.g{user-select:none;-webkit-user-select:none}
+.g td[data-k]{touch-action:none}
+.act{position:sticky;bottom:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border:1px solid var(--ac);background:var(--card);border-radius:10px;padding:10px;margin-top:8px}
+.act[hidden]{display:none}
+.g td.mt{background:var(--ac);color:var(--acf);font-size:11px}
+.leg{display:flex;gap:14px;margin:8px 0}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px;border:1px solid var(--line)}
+.card{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px;margin:10px 0;display:grid;gap:8px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.sc{font-size:28px;font-weight:700;color:var(--ac)}.sc small{font-size:14px}
+.pills span{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;color:var(--mut)}
+.note{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px}
+.msgs{border:1px solid var(--line);background:var(--card);border-radius:10px;height:300px;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.m{max-width:80%;padding:8px 11px;border-radius:12px;background:var(--bg);border:1px solid var(--line)}
+.m.me{align-self:flex-end;background:var(--ac);color:var(--acf);border-color:var(--ac)}
+.m.sys{align-self:center;font-size:12px;color:var(--mut);background:none;border:0}
+.pr{margin-top:6px;padding:8px;border-radius:8px;background:var(--card);color:var(--fg);display:grid;gap:6px;font-size:13px}
+.row{display:flex;gap:8px;margin-bottom:10px}
+.row[hidden]{display:none}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+#me{position:relative}
+.av{width:40px;height:40px;border-radius:50%;border:0;background:var(--ac);color:var(--acf);font-weight:700;font-size:16px;cursor:pointer}
+.menu{position:absolute;right:0;top:46px;z-index:20;min-width:210px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.menu[hidden]{display:none}
+.menu button{display:block;width:100%;text-align:left;background:none;border:0;padding:9px 10px;border-radius:8px;cursor:pointer}
+.menu button:hover{background:var(--bg)}
+.menu .em{padding:6px 10px;color:var(--mut);font-size:12px;overflow-wrap:anywhere}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.kv b{text-align:right;font-weight:600;overflow-wrap:anywhere}
+.auth{max-width:380px;margin:30px auto}
+.chips.big{max-height:230px;overflow-y:auto;padding:2px}
+.chip span{opacity:.7;margin-left:6px}
+details{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:10px}
+summary{cursor:pointer;font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+@media(max-width:520px){.two{grid-template-columns:1fr}}
+li.ev{list-style:none;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:8px 10px;margin:6px 0}
+ul{padding:0;margin:0}
+.g td.pd{background:var(--card);color:var(--ac);outline:2px dashed var(--ac);outline-offset:-2px}
+.dng{border:1px solid var(--ac);color:var(--ac);background:none;border-radius:8px;padding:8px 14px;cursor:pointer}
+</style></head>
+<body><div class="w">
+<div class="hd"><div><h1>BU <span>Study Buddy</span></h1>
+<div class="mut">Match with a mentor or study buddy in your major.</div></div><div id="me"></div></div>
+<nav id="nav"></nav><div id="main"></div>
+<div id="toast" class="note" hidden style="position:fixed;bottom:16px;left:16px;right:16px;max-width:420px;margin:0 auto;z-index:30"></div>
+<p class="mut" style="margin-top:28px">Your email, age and schedule are never shown to other students.</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL='https://swkppmssizxrfcbewiel.supabase.co',SB_KEY='sb_publishable_BIe3A4XCMOlyYP5VJSdqJw_Mo-kKT2y';
+const sb=supabase.createClient(SB_URL,SB_KEY),RD=location.origin+location.pathname;
+const D=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],DO=[6,0,1,2,3,4,5],HS=[...Array(28)].map((_,i)=>i+16);
+const tm=s=>(s>>1)+':'+(s%2?'30':'00');
+const MAJ=['Computer Science','Data Science','Biology','Economics','Business Administration','Psychology','Mechanical Engineering','Biomedical Engineering','Political Science','Mathematics','Chemistry','Communication','Neuroscience','Physics','Astronomy','Statistics','Electrical Engineering','Computer Engineering','Aerospace Engineering','Environmental Science','Public Health','Health Sciences','Biochemistry','International Relations','Philosophy','History','English','Sociology','Anthropology','Linguistics','Journalism','Film & Television','Music','Art','Undeclared'].sort();
+const INT=['AI/ML','Web Dev','Startups','Data Analysis','Research','Pre-med','Finance','Writing','Design','Robotics','Mental Health','Public Policy','Cybersecurity','Biotech','Neuroscience','Sustainability','Law & Ethics','Marketing','Healthcare','Game Dev','Math Theory','Entrepreneurship'];
+const LOC=['Mugar Library','CDS (Computing & Data Sciences)','George Sherman Union','Pardee Library (Questrom)','Photonics Center','Warren Towers Lounge'];
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const gp=()=>{try{return localStorage.getItem('bsb_pool')||'all'}catch(e){return'all'}};
+const blank=()=>({name:'',age:'',year:'',role:'',majors:[],int:[],loc:[],busy:[],pref:[],pool:gp()});
+let U=null,S=blank(),CAND=[],MSGS=[],MT=[],PN={},BL=new Set(),CU=[],V='sched',A=null,AM='in',shot=null,ready=false,tmr=0,sel=[],dg=null,REC=false;
+const toast=m=>{const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,4500)};
+const ae=x=>{const m=String(x&&x.message||x).toLowerCase();return m.includes('invalid login')?'Email or password is incorrect.':m.includes('not confirmed')?'Please confirm your email first. Check your inbox for the link.':m.includes('rate limit')?'Too many emails sent. Please wait a few minutes and try again.':String(x&&x.message||'Something went wrong. Please try again.')};
+/* fuzzy interest matching */
+const AL={machinelearning:'aiml',artificialintelligence:'aiml',ai:'aiml',ml:'aiml',webdevelopment:'webdev',website:'webdev',frontend:'webdev',gamedevelopment:'gamedev',premedical:'premed',datascience:'dataanalysis'};
+const nm=s=>{s=String(s).toLowerCase().replace(/[^a-z0-9]/g,'');return AL[s]||s};
+const lev=(a,b)=>{const d=[...Array(b.length+1).keys()];for(let i=1;i<=a.length;i++){let p=d[0];d[0]=i;for(let j=1;j<=b.length;j++){const t=d[j];d[j]=Math.min(d[j]+1,d[j-1]+1,p+(a[i-1]==b[j-1]?0:1));p=t}}return d[b.length]};
+const close=(a,b)=>{a=nm(a);b=nm(b);if(!a||!b)return false;if(a==b)return true;const L=Math.max(a.length,b.length);return lev(a,b)<=(L>=9?2:L>=5?1:0)||(Math.min(a.length,b.length)>=5&&(a.includes(b)||b.includes(a)))};
+/* data */
+const doSave=async()=>{if(!U)return;const {error}=await sb.from('profiles').update({name:S.name,age:S.age?+S.age:null,year:S.year||null,role:S.role||null,majors:S.majors,interests:S.int,locations:S.loc,busy:S.busy,pref:S.pref}).eq('id',U.id);if(error)toast('Couldn’t save your changes. Check your connection.')};
+const save=()=>{clearTimeout(tmr);tmr=setTimeout(()=>{tmr=0;doSave()},700)};
+const flush=async()=>{if(tmr){clearTimeout(tmr);tmr=0;await doSave()}};
+const nmOf=id=>(PN[id]||{}).n||'Student';
+async function needN(ids){const m=[...new Set(ids)].filter(i=>i&&i!=U.id&&!PN[i]);if(!m.length)return;const {data}=await sb.from('public_profiles').select('id,name,role,year').in('id',m);(data||[]).forEach(r=>PN[r.id]={n:r.name,role:r.role,year:r.year})}
+async function refreshMT(){const {data}=await sb.from('meetings').select('*').order('id');MT=data||[];await needN(MT.flatMap(m=>[m.proposer,m.invitee]))}
+const cn=r=>{const pc=new Set(r.pref_common||[]);return{id:r.id,n:r.name,role:r.role,year:r.year,mj:r.majors||[],major:(r.majors||[]).join(' + '),int:r.interests||[],loc:r.locations||[],com:(r.common||[]).map(k=>{const [d,h]=k.split('-').map(Number);return{d,h,pf:pc.has(k)?1:0}}).sort((a,b)=>DO.indexOf(a.d)-DO.indexOf(b.d)||a.h-b.h)}};
+async function loadCand(){const {data,error}=await sb.rpc('find_matches',{pool:S.pool});if(error){toast('Couldn’t load matches.');return}CAND=(data||[]).map(cn);CAND.forEach(c=>PN[c.id]={n:c.n,role:c.role,year:c.year})}
+async function loadAll(user){
+ U=user;sb.removeAllChannels();
+ const {data:p}=await sb.from('profiles').select('*').eq('id',U.id).single();
+ if(!p)toast('Profile not found. Make sure schema.sql was run in Supabase.');
+ const q=p||{};U.bu=!!q.is_bu;
+ S=Object.assign(blank(),{name:q.name||'',age:q.age?String(q.age):'',year:q.year||'',role:q.role||'',majors:q.majors||[],int:q.interests||[],loc:q.locations||[],busy:q.busy||[],pref:q.pref||[]});
+ const [ms,bl]=await Promise.all([sb.from('messages').select('*').order('id').limit(1000),sb.from('blocks').select('blocked'),refreshMT()]);
+ MSGS=ms.data||[];BL=new Set((bl.data||[]).map(r=>r.blocked));
+ await needN(MSGS.flatMap(m=>[m.sender,m.recipient]));
+ sb.channel('rt')
+  .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages'},async pl=>{const m=pl.new;if(m.sender!=U.id&&m.recipient!=U.id)return;if(!MSGS.some(x=>x.id==m.id))MSGS.push(m);await needN([m.sender,m.recipient]);await refreshMT();if(V=='chat')msgs()})
+  .on('postgres_changes',{event:'*',schema:'public',table:'meetings'},async()=>{await refreshMT();if(V=='chat')msgs();if(V=='sched')render()})
+  .subscribe()}
+/* matching */
+const rng=a=>{const o=[];a.forEach(s=>{const l=o[o.length-1];if(l&&l.d==s.d&&l.e==s.h)l.e++;else o.push({d:s.d,s:s.h,e:s.h+1})});return o.sort((x,y)=>(y.e-y.s)-(x.e-x.s))};
+const fr=r=>`${D[r.d]} ${tm(r.s)}–${tm(r.e)}`;
+const pairs=p=>p.com.filter(x=>p.com.some(y=>y.d==x.d&&y.h==x.h+1));
+const score=p=>{const m=p.mj.some(x=>S.majors.includes(x))?40:0,sh=p.int.filter(i=>S.int.some(x=>close(x,i))).length,
+ i=Math.round(Math.min(1,sh/Math.max(1,Math.min(S.int.length,3)))*25),c=p.com.length,cp=p.com.filter(x=>x.pf).length,
+ t=Math.round(S.pref.length?25*(.6*Math.min(1,cp/Math.max(1,Math.min(S.pref.length,20)))+.4*Math.min(1,c/50)):Math.min(c/2,25)),
+ ls=p.loc.filter(l=>S.loc.includes(l)).length,l=ls?Math.round(Math.min(1,ls/Math.max(1,Math.min(S.loc.length,2)))*10):0;
+ return{m,i,t,l,sh,c,tot:m+i+t+l}};
+/* views */
+const chip=(k,v,on)=>`<button class="chip ${on?'on':''}" data-c="${k}" data-x="${esc(v)}">${esc(v)}</button>`;
+const cust=()=>[...new Set([...S.int.filter(i=>!INT.includes(i)),...CU])];
+const kv=(k,v)=>`<div class="kv"><span>${k}</span><b>${v?esc(v):'<i class="mut">Not set</i>'}</b></div>`;
+function vSched(){
+ const mt=(d,h)=>MT.find(x=>x.status!='declined'&&x.day==d&&h>=x.slot&&h<x.slot+x.n);
+ let g='<div class="gw"><table class="g"><tr><th></th>'+DO.map(d=>`<th>${D[d]}</th>`).join('')+'</tr>';
+ HS.forEach(h=>{g+=`<tr><th>${h%2?'':tm(h)}</th>`;DO.forEach(d=>{const k=d+'-'+h,m=mt(d,h);
+  g+=m?`<td class="mt${m.status=='accepted'?'':' pd'}">${h==m.slot?esc(nmOf(m.proposer==U.id?m.invitee:m.proposer).split(' ')[0]):''}</td>`:`<td data-k="${k}" class="${S.busy.includes(k)?'b':S.pref.includes(k)?'pf':''}"></td>`});g+='</tr>'});
+ g+='</table></div>';
+ const ev=MT.filter(x=>x.status!='declined').sort((a,b)=>((a.day+1)%7)-((b.day+1)%7)||a.slot-b.slot).map(m=>`<li class="ev"><span><b>${D[m.day]} ${tm(m.slot)}–${tm(m.slot+m.n)}</b> with ${esc(nmOf(m.proposer==U.id?m.invitee:m.proposer))}<br><span class="mut">${esc(m.location)} · ${m.status=='accepted'?'Confirmed':'Waiting for reply'}</span></span></li>`).join('');
+ return `<h2>Upload your schedule</h2>
+ <label class="up"><input type="file" id="file" accept="image/*,.pdf" hidden><b>Upload</b> a screenshot or PDF from your BU portal</label>
+ ${shot?(shot.img?`<img class="shot" src="${shot.url}" alt="Uploaded schedule">`:`<p class="mut">📄 ${esc(shot.name)}</p>`):''}
+ ${shot?'<p><button class="sec" data-a="rmfile">Remove file</button></p>':''}
+ <p class="mut">Automatic reading isn’t available on this site yet. Use your upload as a reference: drag across the calendar to select a time range, then set it as possible (preferred) or impossible (class or unavailable). Anything you leave unmarked counts as free time. Your upload stays in this browser tab and is never sent anywhere.</p>
+ <h2>My calendar</h2>${g}
+ <div class="leg"><span><i style="background:var(--pf)"></i>Preferred</span><span><i style="background:var(--card)"></i>Free</span><span><i style="background:var(--busy)"></i>Impossible</span><span><i style="background:var(--ac)"></i>Meeting</span></div>
+ <div id="act" class="act" hidden><b id="acn"></b><button class="pri" data-s="p">Set as possible</button><button class="sec" data-s="i">Set as impossible</button><button class="sec" data-s="c">Clear</button><button class="sec" data-s="x">Cancel</button></div>
+ <h2>Study meetings</h2><ul>${ev||'<p class="mut">None yet. Propose a time in Chat.</p>'}</ul>`}
+const vProf=()=>`<h2>${S.name&&S.year?'Settings':'Set up your profile'}</h2>${S.name&&S.role?'':'<div class="note" style="margin-bottom:8px">Other students can find you once you add your name and choose Mentor or Study buddy.</div>'}<div class="two"><input id="pn" type="text" maxlength="40" placeholder="Name" value="${esc(S.name)}"><input id="pa" type="number" min="1" max="120" placeholder="Age" value="${esc(S.age)}"></div><select id="py"><option value="">Year…</option>${['Freshman','Sophomore','Junior','Senior'].map(y=>`<option ${S.year==y?'selected':''}>${y}</option>`).join('')}</select>
+<h2>I want to be a…</h2><div class="chips">${['Mentor','Study buddy'].map(r=>`<button class="chip ${S.role==r?'on':''}" data-role="${r}">${r}</button>`).join('')}</div><div class="mut" style="margin-top:6px">Mentors guide other students in their major. Study buddies study together as peers.</div>
+<h2>Majors <span class="mut">(select all that apply, e.g. double major)</span></h2><div class="chips big">${MAJ.map(m=>chip('majors',m,S.majors.includes(m))).join('')}</div>
+<h2>Academic interests</h2><div class="chips">${INT.map(i=>chip('int',i,S.int.includes(i))).join('')}${cust().map(i=>`<button class="chip ${S.int.includes(i)?'on':''}" data-c="int" data-x="${esc(i)}">${esc(i)}<span data-del="${esc(i)}">×</span></button>`).join('')}<button class="chip" data-a="addi" title="Add your own interest">+</button></div>
+<div id="addrow" class="row" style="margin-top:8px" hidden><input id="ni" type="text" maxlength="40" placeholder="Type your own interest…"><button class="pri" data-a="addok">Add</button></div>
+<h2>Preferred places to study or meet</h2><div class="chips">${LOC.map(i=>chip('loc',i,S.loc.includes(i))).join('')}</div>
+<p><button class="pri" data-nav="match">Find my matches</button></p>`;
+const vAcct=()=>`<h2>Account</h2><div class="card">${kv('Email',U.email)}${kv('Email type',U.bu?'BU email':'Outside email')}${kv('Name',S.name)}${kv('Age',S.age)}${kv('Year',S.year)}${kv('Role',S.role)}${kv('Majors',S.majors.join(', '))}${kv('Interests',S.int.join(', '))}${kv('Study spots',S.loc.join(', '))}</div><p><button class="pri" data-go="prof">Edit in Settings</button></p>`;
+const vSec=()=>`<h2>Security</h2><div class="card">${kv('Email',U.email)}<div class="kv"><span>Password</span><b>••••••••••</b></div><div class="mut">For your protection, passwords are never displayed or stored by this site. They are handled by a secure login service.</div></div>
+<h2>${REC?'Set a new password':'Change password'}</h2><div class="card">${REC?'':'<input id="cp" type="password" placeholder="Current password" autocomplete="current-password">'}<input id="np" type="password" placeholder="New password (8+ characters)" autocomplete="new-password"><input id="np2" type="password" placeholder="Confirm new password" autocomplete="new-password"><div id="sm" class="mut"></div><div><button class="pri" data-a="chpw">${REC?'Save new password':'Change password'}</button></div></div>
+<h2>Delete account</h2><div class="card"><div class="mut">Permanently deletes your profile, schedule, messages and meetings.</div><div><button class="dng" data-a="delme">Delete my account</button></div></div>`;
+const vAuth=()=>`<div class="card auth"><div class="pp"><button class="${AM=='in'?'on':''}" data-am="in">Log in</button><button class="${AM=='up'?'on':''}" data-am="up">Create account</button></div>
+<input id="ae" type="email" placeholder="Email (@bu.edu or any email)" autocomplete="email"><input id="ap" type="password" placeholder="Password" autocomplete="${AM=='in'?'current-password':'new-password'}">${AM=='up'?'<input id="ap2" type="password" placeholder="Confirm password (8+ characters)" autocomplete="new-password"><div class="mut">Use your @bu.edu email to find BU classmates. Other emails work too. We’ll email you a link to confirm your address.</div>':'<div><button class="sec" data-a="forgot">Forgot password?</button></div>'}<div id="am" class="mut"></div><button class="pri" data-a="auth">${AM=='in'?'Log in':'Create account'}</button></div>`;
+function vMatch(){
+ return `<div class="pp" style="margin-bottom:8px">${[['all','Everyone'],['mentor','Mentors'],['buddy','Study buddies']].map(([k,l])=>`<button class="${S.pool==k?'on':''}" data-pool="${k}">${l}</button>`).join('')}</div><div class="note">Score (100 pts) = same major 40 + shared interests 25 + common free time 25 (your preferred hours count most) + shared study spots 10.</div>`+
+ (S.majors.length?'':'<p class="note">Choose your major(s) in Settings to improve your matches.</p>')+
+ (CAND.length?'':'<p class="note">No students to show yet. Matches appear as others finish their profiles (name and role).</p>')+
+ CAND.map(p=>({p,s:score(p)})).sort((a,b)=>b.s.tot-a.s.tot).map(({p,s})=>{const cs=p.com,pf=cs.filter(x=>x.pf),rg=rng(pf.length?pf:cs).slice(0,3);return `<div class="card"><div class="top"><div><b>${esc(p.n)}</b><div class="mut">${esc(p.role)} · ${esc(p.year||'')} · ${esc(p.major||'No major set')}</div></div><div class="sc">${s.tot}<small>%</small></div></div>
+ <div class="pills"><span>Major ${s.m}/40</span><span>Interests ${s.i}/25 (${s.sh} shared)</span><span>Free time ${s.t}/25 (${s.c/2}h)</span><span>Location ${s.l}/10</span></div>
+ <div class="mut">Interests: ${esc(p.int.join(', ')||'—')}<br>Spots: ${esc(p.loc.join(', ')||'—')}</div>
+ <div>${pf.length?'Common preferred time ★':'Common free'}: ${rg.length?rg.map(fr).join(' · '):'none'}</div><div><button class="pri" data-chat="${p.id}">Chat</button></div></div>`}).join('')}
+const chatIds=()=>[...new Set([...CAND.map(c=>c.id),...MSGS.map(m=>m.sender==U.id?m.recipient:m.sender)])].filter(i=>!BL.has(i));
+function vChat(){
+ const ids=chatIds();if(!ids.length)return '<p class="note">No one to chat with yet. Complete your profile, then check Matches.</p>';
+ if(!A||!ids.includes(A))A=ids[0];
+ const p=PN[A]||{},c=CAND.find(x=>x.id==A),cs=c?pairs(c).sort((a,b)=>b.pf-a.pf):[],pref=c?(c.loc.find(l=>S.loc.includes(l))||c.loc[0]):'';
+ return `<div class="pp">${ids.map(id=>`<button class="${id==A?'on':''}" data-chat="${id}">${esc(nmOf(id))}</button>`).join('')}</div>
+ <div class="top" style="margin-top:8px"><span class="mut">${esc(p.role||'')} · ${esc(p.year||'')}</span><span><button class="sec" data-a="block">Block</button> <button class="sec" data-a="report">Report</button></span></div>
+ <div id="msgs" class="msgs"></div>
+ <div class="row"><input id="txt" type="text" maxlength="2000" placeholder="Message ${esc(nmOf(A))}…"><button class="pri" data-a="send">Send</button></div>
+ <details open><summary>Propose a meeting</summary>${c?`<div class="two"><select id="ps">${cs.map(s=>`<option value="${s.d}-${s.h}">${D[s.d]} ${tm(s.h)}–${tm(s.h+2)}${s.pf?' ★':''}</option>`).join('')||'<option value="">No common free time</option>'}</select>
+ <select id="pl">${LOC.map(l=>`<option ${l==pref?'selected':''}>${l}${c.loc.includes(l)?' ★':''}</option>`).join('')}</select></div>
+ <button class="pri" data-a="prop">Send proposal</button> <span class="mut">★ = your preferred time / their preferred spot</span>`:'<p class="mut">Meeting proposals need a current match with shared free time.</p>'}</details>`}
+function msgs(){
+ const e=$('#msgs');if(!e||V!='chat')return;
+ e.innerHTML=MSGS.filter(m=>(m.sender==A&&m.recipient==U.id)||(m.sender==U.id&&m.recipient==A)).sort((a,b)=>a.id-b.id).map(m=>{
+  const me=m.sender==U.id,t=m.meeting_id?MT.find(x=>x.id==m.meeting_id):null;let c='';
+  if(t)c=`<div class="pr">📅 ${D[t.day]} ${tm(t.slot)}–${tm(t.slot+t.n)} at ${esc(t.location)}<div>${t.status=='accepted'?'✓ Accepted, added to both calendars':t.status=='declined'?'✗ Declined':me?'Waiting for reply…':`<button class="pri" data-a="acc" data-i="${t.id}">Accept</button> <button class="sec" data-a="dec" data-i="${t.id}">Decline</button>`}</div></div>`;
+  return `<div class="m ${me?'me':'them'}">${esc(m.body)}${c}</div>`}).join('')||'<div class="m sys">Say hi to start the conversation.</div>';
+ e.scrollTop=e.scrollHeight}
+function renderMe(){const e=$('#me');if(!U){e.innerHTML='';return}
+ e.innerHTML=`<button class="av" id="av" aria-label="Account menu">${esc((S.name||U.email||'?')[0].toUpperCase())}</button><div class="menu" id="mn" hidden><div class="em">${esc(S.name||'')}${S.name?'<br>':''}${esc(U.email)}</div><button data-go="acct">Account</button><button data-go="prof">Settings</button><button data-go="sec">Security</button><button data-go="out">Log out</button></div>`}
+function render(){
+ renderMe();
+ $('#nav').innerHTML=!U?'':[['sched','Calendar'],['match','Matches'],['chat','Chat']].map(([k,l])=>`<button class="${V==k?'on':''}" data-nav="${k}">${l}</button>`).join('');
+ $('#main').innerHTML=!ready?'<p class="mut">Loading…</p>':(U?{sched:vSched,prof:vProf,match:vMatch,chat:vChat,acct:vAcct,sec:vSec}[V]:vAuth)();msgs()}
+/* actions */
+async function go(v){
+ if(v=='out'){await logout();return}
+ V=v;if(v=='match'||v=='chat'){await flush();await loadCand()}render()}
+async function logout(){await sb.auth.signOut();sb.removeAllChannels();U=null;S=blank();CAND=[];MSGS=[];MT=[];PN={};BL=new Set();CU=[];A=null;V='sched';AM='in';shot=null;REC=false;render()}
+async function doAuth(){
+ const m=$('#am'),e=$('#ae').value.trim().toLowerCase(),p=$('#ap').value,b=$('[data-a=auth]');
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)){m.textContent='Enter a valid email (BU or any other address).';return}
+ b.disabled=true;
+ try{
+  if(AM=='up'){
+   if(p.length<8){m.textContent='Password must be at least 8 characters.';return}
+   if(p!==$('#ap2').value){m.textContent='Passwords don’t match.';return}
+   const {data,error}=await sb.auth.signUp({email:e,password:p,options:{emailRedirectTo:RD}});if(error)throw error;
+   if(data.session){await loadAll(data.user);V='prof';render();return}
+   m.textContent='Almost done! We sent a confirmation link to '+e+'. Click it, then log in here.'
+  }else{
+   const {data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)throw error;
+   await loadAll(data.user);V='prof';render()}
+ }catch(x){const mm=$('#am');if(mm)mm.textContent=ae(x)}finally{b.disabled=false}}
+async function forgot(){const m=$('#am'),e=$('#ae').value.trim().toLowerCase();
+ if(!e){m.textContent='Type your email above first.';return}
+ const {error}=await sb.auth.resetPasswordForEmail(e,{redirectTo:RD});m.textContent=error?ae(error):'If an account exists for '+e+', we sent a password reset link.'}
+async function chPw(){
+ const m=$('#sm'),n=$('#np').value;
+ try{
+  if(n.length<8){m.textContent='New password must be at least 8 characters.';return}
+  if(n!==$('#np2').value){m.textContent='New passwords don’t match.';return}
+  if(!REC){const {error}=await sb.auth.signInWithPassword({email:U.email,password:$('#cp').value});if(error){m.textContent='Current password is incorrect.';return}}
+  const {error:e2}=await sb.auth.updateUser({password:n});if(e2)throw e2;
+  ['#cp','#np','#np2'].forEach(s=>{const x=$(s);if(x)x.value=''});REC=false;m.textContent='Password updated ✓'
+ }catch(x){m.textContent=ae(x)}}
+async function delMe(){
+ if(!confirm('Delete your account and all your data? This can’t be undone.'))return;
+ const {error}=await sb.rpc('delete_me');if(error){toast('Couldn’t delete the account.');return}await logout()}
+async function sendMsg(body,mid){
+ const {data,error}=await sb.from('messages').insert({sender:U.id,recipient:A,body,meeting_id:mid||null}).select().single();
+ if(error){toast('Couldn’t send that message.');return null}
+ if(!MSGS.some(x=>x.id==data.id))MSGS.push(data);msgs();return data}
+async function send(){const i=$('#txt'),t=i.value.trim();if(!t||!A)return;i.value='';await sendMsg(t)}
+async function propose(){
+ const v=$('#ps').value;if(!v||!A)return;const [d,h]=v.split('-').map(Number);
+ const {data,error}=await sb.from('meetings').insert({proposer:U.id,invitee:A,day:d,slot:h,n:2,location:$('#pl').value.replace(' ★',''),status:'pending'}).select().single();
+ if(error){toast('Couldn’t send the proposal.');return}
+ await sendMsg('Can we meet then?',data.id);await refreshMT();await loadCand();render()}
+async function answer(id,st){
+ const {error}=await sb.from('meetings').update({status:st}).eq('id',id);if(error){toast('Couldn’t update the meeting.');return}
+ await refreshMT();await loadCand();msgs()}
+async function block(){
+ if(!A||!confirm('Block this student? You won’t see each other or be able to message.'))return;
+ const {error}=await sb.from('blocks').insert({blocker:U.id,blocked:A});if(error){toast('Couldn’t block this student.');return}
+ BL.add(A);CAND=CAND.filter(c=>c.id!=A);A=null;render()}
+async function report(){
+ const r=prompt('What happened? Your report goes to the site admins.');if(!r||!A)return;
+ const {error}=await sb.from('reports').insert({reporter:U.id,reported:A,reason:r.slice(0,1000)});toast(error?'Couldn’t send the report.':'Report sent. Thank you.')}
+function addInt(){const i=$('#ni'),v=i.value.trim().replace(/\s+/g,' ').slice(0,40);if(!v)return;
+ const ex=[...INT,...cust()].find(z=>close(z,v)),n=ex||v;if(!ex)CU.push(n);if(!S.int.includes(n))S.int.push(n);save();render()}
+/* drag-select on calendar */
+const cell=e=>{const t=document.elementFromPoint(e.clientX,e.clientY);return t&&t.closest?t.closest('td[data-k]'):null};
+const kd=c=>c.dataset.k.split('-').map(Number);
+function paint(a,b){const [d0,h0]=kd(a),[d1,h1]=kd(b),x=[Math.min(d0,d1),Math.max(d0,d1)],y=[Math.min(h0,h1),Math.max(h0,h1)];
+ sel=[];document.querySelectorAll('.g td[data-k]').forEach(c=>{const [d,h]=kd(c),on=d>=x[0]&&d<=x[1]&&h>=y[0]&&h<=y[1];c.classList.toggle('sel',on);if(on)sel.push(c.dataset.k)})}
+document.addEventListener('pointerdown',e=>{const c=e.target.closest&&e.target.closest('td[data-k]');if(!c)return;dg=c;paint(c,c);const a=$('#act');if(a)a.hidden=true});
+document.addEventListener('pointermove',e=>{if(!dg)return;const c=cell(e);if(c)paint(dg,c)});
+document.addEventListener('pointerup',e=>{if(!dg)return;const c=cell(e);if(c)paint(dg,c);dg=null;const a=$('#act');if(a&&sel.length){$('#acn').textContent=(sel.length/2)+' h selected';a.hidden=false}});
+document.addEventListener('pointercancel',()=>{dg=null});
+/* events */
+document.addEventListener('click',async e=>{
+ const t=e.target,c=s=>t.closest(s),mn=$('#mn');let b;
+ if(c('#av')){mn.hidden=!mn.hidden;return}
+ if(mn&&!c('#mn'))mn.hidden=true;
+ if(t.dataset&&t.dataset.del!=null){const v=t.dataset.del;CU=CU.filter(z=>z!=v);S.int=S.int.filter(z=>z!=v);save();render();return}
+ if(b=c('[data-s]')){const m=b.dataset.s;if(m!='x'){sel.forEach(k=>{S.busy=S.busy.filter(z=>z!=k);S.pref=S.pref.filter(z=>z!=k);if(m=='p')S.pref.push(k);if(m=='i')S.busy.push(k)});save()}sel=[];render();return}
+ if(b=c('[data-nav],[data-go]')){await go(b.dataset.nav||b.dataset.go);return}
+ if(b=c('[data-c]')){const a=S[b.dataset.c],x=b.dataset.x,i=a.indexOf(x);i<0?a.push(x):a.splice(i,1);save();b.classList.toggle('on');return}
+ if(b=c('[data-role]')){S.role=b.dataset.role;save();document.querySelectorAll('[data-role]').forEach(z=>z.classList.toggle('on',z.dataset.role==S.role));return}
+ if(b=c('[data-pool]')){S.pool=b.dataset.pool;try{localStorage.setItem('bsb_pool',S.pool)}catch(x){}await loadCand();render();return}
+ if(b=c('[data-am]')){AM=b.dataset.am;render();return}
+ if(b=c('[data-chat]')){A=b.dataset.chat;V='chat';await flush();await loadCand();render();return}
+ if(b=c('[data-a]')){const a=b.dataset.a;
+  if(a=='auth')doAuth();else if(a=='forgot')forgot();else if(a=='chpw')chPw();else if(a=='delme')delMe();
+  else if(a=='send')send();else if(a=='prop')propose();else if(a=='acc')answer(+b.dataset.i,'accepted');else if(a=='dec')answer(+b.dataset.i,'declined');
+  else if(a=='block')block();else if(a=='report')report();else if(a=='rmfile'){shot=null;render()}
+  else if(a=='addi'){const r=$('#addrow');r.hidden=!r.hidden;if(!r.hidden)$('#ni').focus()}else if(a=='addok')addInt()}
+});
+document.addEventListener('keydown',e=>{if(e.key!='Enter')return;const id=e.target.id;if(id=='txt')send();if(id=='ni')addInt();if(['ae','ap','ap2'].includes(id))doAuth()});
+document.addEventListener('change',e=>{const t=e.target;
+ if(t.id=='pn'){S.name=t.value.trim();save();renderMe()}
+ if(t.id=='pa'){const a=parseInt(t.value);S.age=a>0&&a<120?String(a):'';save()}
+ if(t.id=='py'){S.year=t.value;save()}
+ if(t.id=='file'&&t.files[0]){const f=t.files[0];
+  if(f.type.startsWith('image/')){const r=new FileReader;r.onload=()=>{shot={img:1,url:r.result,name:f.name};render()};r.readAsDataURL(f)}
+  else{shot={name:f.name};render()}}});
+window.addEventListener('pagehide',()=>{if(tmr){clearTimeout(tmr);tmr=0;doSave()}});
+sb.auth.onAuthStateChange((ev,ses)=>{
+ if(ev=='PASSWORD_RECOVERY')setTimeout(async()=>{REC=true;await loadAll(ses.user);V='sec';ready=true;render()},0)});
+(async()=>{
+ render();
+ try{const {data}=await sb.auth.getSession();if(data.session&&!REC){await loadAll(data.session.user);V=S.name&&S.role?'sched':'prof'}}catch(e){toast('Couldn’t reach the server. Check your connection.')}
+ ready=true;render()})();
+</script></body></html>
